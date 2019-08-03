@@ -66,16 +66,14 @@ namespace Mdlib.DotNet.Metadata {
 		/// <summary />
 		public string DisplayVersionString {
 			get {
-				if (_displayVersionString != null)
-					return _displayVersionString;
-
-				RefreshCache();
+				if (_displayVersionString is null)
+					RefreshCache();
 				return _displayVersionString;
 			}
 		}
 
 		internal StorageSignature(IMetadata metadata) {
-			if (metadata == null)
+			if (metadata is null)
 				throw new ArgumentNullException(nameof(metadata));
 
 			_peImage = metadata.PEImage;

@@ -90,7 +90,7 @@ namespace Mdlib.DotNet.Metadata {
 		public BlobHeap BlobHeap => _blobHeap;
 
 		public Metadata(IPEImage peImage) {
-			if (peImage == null)
+			if (peImage is null)
 				throw new ArgumentNullException(nameof(peImage));
 			if (!peImage.IsDotNetImage)
 				throw new InvalidOperationException();
@@ -101,7 +101,7 @@ namespace Mdlib.DotNet.Metadata {
 			_cor20Header = new Cor20Header(this);
 			_storageSignature = new StorageSignature(this);
 			_storageHeader = new StorageHeader(this);
-			_streamHeaders = new StreamHeader[_storageHeader.StreamsCount];
+			_streamHeaders = new StreamHeader[_storageHeader.StreamCount];
 			for (int i = 0; i < _streamHeaders.Length; i++)
 				_streamHeaders[i] = new StreamHeader(this, (uint)i);
 			isCompressed = null;
@@ -109,7 +109,7 @@ namespace Mdlib.DotNet.Metadata {
 				string name;
 
 				name = header.DisplayName;
-				if (isCompressed == null)
+				if (isCompressed is null)
 					if (name == "#~")
 						isCompressed = true;
 					else if (name == "#-")
@@ -117,29 +117,29 @@ namespace Mdlib.DotNet.Metadata {
 				if (name == "#Schema")
 					isCompressed = false;
 			}
-			if (isCompressed == null)
+			if (isCompressed is null)
 				throw new BadImageFormatException("Metadata table (#~ / #-) not found");
 			if (isCompressed.Value)
 				for (int i = _streamHeaders.Length - 1; i >= 0; i--)
 					switch (_streamHeaders[i].DisplayName) {
 					case "#~":
-						if (_tableStream == null)
+						if (_tableStream is null)
 							_tableStream = new TableStream(this, i, true);
 						break;
 					case "#Strings":
-						if (_stringHeap == null)
+						if (_stringHeap is null)
 							_stringHeap = new StringHeap(this, i);
 						break;
 					case "#US":
-						if (_userStringHeap == null)
+						if (_userStringHeap is null)
 							_userStringHeap = new UserStringHeap(this, i);
 						break;
 					case "#GUID":
-						if (_guidHeap == null)
+						if (_guidHeap is null)
 							_guidHeap = new GuidHeap(this, i);
 						break;
 					case "#Blob":
-						if (_blobHeap == null)
+						if (_blobHeap is null)
 							_blobHeap = new BlobHeap(this, i);
 						break;
 					}
@@ -148,23 +148,23 @@ namespace Mdlib.DotNet.Metadata {
 					switch (_streamHeaders[i].DisplayName.ToUpperInvariant()) {
 					case "#~":
 					case "#-":
-						if (_tableStream == null)
+						if (_tableStream is null)
 							_tableStream = new TableStream(this, i, false);
 						break;
 					case "#STRINGS":
-						if (_stringHeap == null)
+						if (_stringHeap is null)
 							_stringHeap = new StringHeap(this, i);
 						break;
 					case "#US":
-						if (_userStringHeap == null)
+						if (_userStringHeap is null)
 							_userStringHeap = new UserStringHeap(this, i);
 						break;
 					case "#GUID":
-						if (_guidHeap == null)
+						if (_guidHeap is null)
 							_guidHeap = new GuidHeap(this, i);
 						break;
 					case "#BLOB":
-						if (_blobHeap == null)
+						if (_blobHeap is null)
 							_blobHeap = new BlobHeap(this, i);
 						break;
 					}

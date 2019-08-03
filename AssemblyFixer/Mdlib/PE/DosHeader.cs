@@ -38,7 +38,7 @@ namespace Mdlib.PE {
 		}
 
 		internal DosHeader(IPEImage peImage) {
-			if (peImage == null)
+			if (peImage is null)
 				throw new ArgumentNullException(nameof(peImage));
 
 			_rawData = (byte*)peImage.RawData;

@@ -227,7 +227,7 @@ namespace Mdlib.PE {
 		public DataDirectory* DotNetDirectory => DataDirectories + 14;
 
 		internal OptionalHeader(NtHeader ntHeader) {
-			if (ntHeader == null)
+			if (ntHeader is null)
 				throw new ArgumentNullException(nameof(ntHeader));
 
 			_rawData = (byte*)ntHeader.RawData + 4 + IMAGE_FILE_HEADER.UnmanagedSize;

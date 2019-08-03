@@ -64,16 +64,14 @@ namespace Mdlib.PE {
 		/// <summary />
 		public string DisplayName {
 			get {
-				if (_displayName != null)
-					return _displayName;
-
-				RefreshCache();
+				if (_displayName is null)
+					RefreshCache();
 				return _displayName;
 			}
 		}
 
 		internal SectionHeader(IPEImage peImage, uint index) {
-			if (peImage == null)
+			if (peImage is null)
 				throw new ArgumentNullException(nameof(peImage));
 
 			_offset = (uint)peImage.FileHeader.FOA + IMAGE_FILE_HEADER.UnmanagedSize + peImage.FileHeader.OptionalHeaderSize + index * IMAGE_SECTION_HEADER.UnmanagedSize;

@@ -33,9 +33,9 @@ namespace Mdlib.DotNet.Metadata {
 		}
 
 		internal MetadataStream(IMetadata metadata, StreamHeader header) {
-			if (metadata == null)
+			if (metadata is null)
 				throw new ArgumentNullException(nameof(metadata));
-			if (header == null)
+			if (header is null)
 				throw new ArgumentNullException(nameof(header));
 
 			_peImage = metadata.PEImage;

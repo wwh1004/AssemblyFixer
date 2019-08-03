@@ -60,16 +60,14 @@ namespace Mdlib.DotNet.Metadata {
 		/// <summary />
 		public string DisplayName {
 			get {
-				if (_displayName != null)
-					return _displayName;
-
-				RefreshCache();
+				if (_displayName is null)
+					RefreshCache();
 				return _displayName;
 			}
 		}
 
 		internal StreamHeader(IMetadata metadata, uint index) {
-			if (metadata == null)
+			if (metadata is null)
 				throw new ArgumentNullException(nameof(metadata));
 
 			_peImage = metadata.PEImage;

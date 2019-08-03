@@ -41,13 +41,13 @@ namespace Mdlib.DotNet.Metadata {
 		}
 
 		/// <summary />
-		public ushort StreamsCount {
+		public ushort StreamCount {
 			get => RawValue->iStreams;
 			set => RawValue->iStreams = value;
 		}
 
 		internal StorageHeader(IMetadata metadata) {
-			if (metadata == null)
+			if (metadata is null)
 				throw new ArgumentNullException(nameof(metadata));
 
 			_peImage = metadata.PEImage;

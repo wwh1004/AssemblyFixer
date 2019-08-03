@@ -37,6 +37,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="AssemblyFixer.cs" />
+    <Compile Include="FixerContext.cs" />
+    <Compile Include="Fixers\DosHeaderFixer.cs" />
+    <Compile Include="Fixers\FileHeaderFixer.cs" />
+    <Compile Include="Fixers\NtHeaderFixer.cs" />
+    <Compile Include="Fixers\OptionalHeaderFixer.cs" />
+    <Compile Include="Fixers\Utils.cs" />
     <Compile Include="IFixer.cs" />
     <Compile Include="Mdlib\DotNet\Metadata\ComImageFlags.cs" />
     <Compile Include="Mdlib\DotNet\Metadata\Cor20Header.cs" />
@@ -68,8 +74,6 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Fixers\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

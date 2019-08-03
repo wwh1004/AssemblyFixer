@@ -154,7 +154,7 @@ namespace Mdlib.PE {
 				if (!_isDotNetImage)
 					throw new InvalidOperationException();
 
-				if (_metadata == null)
+				if (_metadata is null)
 					_metadata = new Metadata(this);
 				return _metadata;
 			}
@@ -168,7 +168,7 @@ namespace Mdlib.PE {
 			_length = length;
 			_dosHeader = new DosHeader(this);
 			_ntHeader = new NtHeader(this);
-			_sectionHeaders = new SectionHeader[_ntHeader.FileHeader.SectionsCount];
+			_sectionHeaders = new SectionHeader[_ntHeader.FileHeader.SectionCount];
 			for (uint i = 0; i < _sectionHeaders.Length; i++)
 				_sectionHeaders[i] = new SectionHeader(this, i);
 			_isDotNetImage = _ntHeader.OptionalHeader.DotNetDirectory->Address != 0;

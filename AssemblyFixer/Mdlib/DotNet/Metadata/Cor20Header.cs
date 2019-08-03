@@ -66,7 +66,7 @@ namespace Mdlib.DotNet.Metadata {
 				return (MetadataToken)RawValue->EntryPointTokenOrRVA;
 			}
 			set {
-				if (value == null)
+				if (value is null)
 					throw new ArgumentNullException(nameof(value));
 
 				CorFlags &= ~ComImageFlags.NativeEntryPoint;
@@ -85,7 +85,7 @@ namespace Mdlib.DotNet.Metadata {
 				return (RVA)RawValue->EntryPointTokenOrRVA;
 			}
 			set {
-				if (value == null)
+				if (value is null)
 					throw new ArgumentNullException(nameof(value));
 
 				CorFlags |= ComImageFlags.NativeEntryPoint;
@@ -103,7 +103,7 @@ namespace Mdlib.DotNet.Metadata {
 		public DataDirectory* VTableFixupsDirectory => (DataDirectory*)&RawValue->VTableFixups;
 
 		internal Cor20Header(IMetadata metadata) {
-			if (metadata == null)
+			if (metadata is null)
 				throw new ArgumentNullException(nameof(metadata));
 
 			_peImage = metadata.PEImage;

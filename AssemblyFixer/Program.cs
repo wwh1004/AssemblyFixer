@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using Mdlib.PE;
 
 namespace UniversalDotNetTools {
 	internal sealed class Program {
 		private static void Main(string[] args) {
-			if (args == null || args.Length != 1)
+			if (args is null || args.Length != 1)
 				return;
 
 			string assemblyPath;
@@ -24,20 +25,65 @@ namespace UniversalDotNetTools {
 				return;
 			}
 			using (IPEImage peImage = PEImageFactory.Create(assemblyPath)) {
+				FixerContext context;
 				IDictionary<IFixer, FixerMessage> messages;
 
-				Console.WriteLine("Checking errors...");
-				messages = AssemblyFixer.Check(peImage);
+				context = new FixerContext(peImage);
+				Console.WriteLine("If it is dll, enter Y, otherwise enter N.");
+				do {
+					string userInput;
+
+					userInput = Console.ReadLine().Trim().ToUpperInvariant();
+					if (userInput == "Y") {
+						context.IsDll = true;
+						break;
+					}
+					else if (userInput == "N") {
+						context.IsDll = false;
+						break;
+					}
+					else
+						Console.WriteLine("Invalid input");
+				} while (true);
+				Console.WriteLine();
+				Console.WriteLine("Checking...");
+				messages = AssemblyFixer.Check(context);
 				Console.WriteLine("Checked errors:");
-				foreach (KeyValuePair<IFixer, FixerMessage> fixerToMessage in messages)
-					Console.WriteLine($"  -{fixerToMessage.Key.Name}: {fixerToMessage.Value.Text} ({fixerToMessage.Value.Level})");
 				Console.WriteLine();
-				Console.WriteLine("Fixing errors...");
-				messages = AssemblyFixer.Fix(peImage);
+				foreach (KeyValuePair<IFixer, FixerMessage> fixerToMessage in messages) {
+					Console.WriteLine(fixerToMessage.Key.Name + ":");
+					Console.WriteLine($"Level: {fixerToMessage.Value.Level}");
+					Console.WriteLine("Message:");
+					Console.WriteLine(fixerToMessage.Value.Text);
+					Console.WriteLine();
+				}
+				Console.WriteLine();
+				Console.WriteLine("Fixing...");
+				messages = AssemblyFixer.Fix(context);
 				Console.WriteLine("Fixed errors:");
-				foreach (KeyValuePair<IFixer, FixerMessage> fixerToMessage in messages)
-					Console.WriteLine($"  -{fixerToMessage.Key.Name}: {fixerToMessage.Value.Text} ({fixerToMessage.Value.Level})");
 				Console.WriteLine();
+				foreach (KeyValuePair<IFixer, FixerMessage> fixerToMessage in messages) {
+					Console.WriteLine(fixerToMessage.Key.Name + ":");
+					Console.WriteLine($"Level: {fixerToMessage.Value.Level}");
+					Console.WriteLine("Message:");
+					Console.WriteLine(fixerToMessage.Value.Text);
+					Console.WriteLine();
+				}
+				Console.WriteLine();
+				Console.WriteLine("If the assembly still does NOT run, may be you should rebuild it!!!");
+				Console.WriteLine();
+				if (messages.Count != 0) {
+					byte[] peImageData;
+					string newAssemblyPath;
+
+					peImageData = new byte[peImage.Length];
+					Marshal.Copy(peImage.RawData, peImageData, 0, peImageData.Length);
+					newAssemblyPath = PathInsertPostfix(assemblyPath, ".fix");
+					Console.WriteLine("Saving: " + newAssemblyPath);
+					File.WriteAllBytes(newAssemblyPath, peImageData);
+					Console.WriteLine("Finished");
+					Console.WriteLine();
+				}
 			}
 			if (IsN00bUser() || Debugger.IsAttached) {
 				Console.WriteLine("Press any key to exit...");
@@ -47,6 +93,10 @@ namespace UniversalDotNetTools {
 				catch {
 				}
 			}
+		}
+
+		private static string PathInsertPostfix(string path, string postfix) {
+			return Path.Combine(Path.GetDirectoryName(path), Path.GetFileNameWithoutExtension(path) + postfix + Path.GetExtension(path));
 		}
 
 		private static string GetTitle() {
@@ -83,7 +133,7 @@ namespace UniversalDotNetTools {
 				string env;
 
 				env = key as string;
-				if (env == null)
+				if (env is null)
 					continue;
 				if (string.Equals(env, name, StringComparison.OrdinalIgnoreCase))
 					return true;

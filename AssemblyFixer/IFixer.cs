@@ -1,5 +1,4 @@
 using System;
-using Mdlib.PE;
 
 namespace UniversalDotNetTools {
 	/// <summary>
@@ -28,6 +27,11 @@ namespace UniversalDotNetTools {
 	public sealed class FixerMessage {
 		private readonly FixerLevel _level;
 		private readonly string _text;
+
+		/// <summary>
+		/// An empty message
+		/// </summary>
+		public static readonly FixerMessage None = new FixerMessage(FixerLevel.None, string.Empty);
 
 		/// <summary>
 		/// Level
@@ -73,17 +77,23 @@ namespace UniversalDotNetTools {
 		/// <summary>
 		/// Check errors
 		/// </summary>
-		/// <param name="peImage"></param>
+		/// <param name="context"></param>
 		/// <param name="message"></param>
 		/// <returns></returns>
-		bool Check(IPEImage peImage, out FixerMessage message);
+		bool Check(FixerContext context, out FixerMessage message);
 
 		/// <summary>
 		/// Fix errors
 		/// </summary>
-		/// <param name="peImage"></param>
+		/// <param name="context"></param>
 		/// <param name="message"></param>
 		/// <returns></returns>
-		bool Fix(IPEImage peImage, out FixerMessage message);
+		bool Fix(FixerContext context, out FixerMessage message);
+	}
+
+	internal static class Extensions {
+		public static void Ensure(this ref FixerLevel level, FixerLevel minLevel) {
+			level = level < minLevel ? minLevel : level;
+		}
 	}
 }

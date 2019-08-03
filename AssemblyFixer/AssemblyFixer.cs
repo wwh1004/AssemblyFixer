@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Mdlib.PE;
 
 namespace UniversalDotNetTools {
 	/// <summary>
@@ -28,11 +27,11 @@ namespace UniversalDotNetTools {
 		/// <summary>
 		/// Check errors
 		/// </summary>
-		/// <param name="peImage"></param>
+		/// <param name="context"></param>
 		/// <returns></returns>
-		public static IDictionary<IFixer, FixerMessage> Check(IPEImage peImage) {
-			if (peImage is null)
-				throw new ArgumentNullException(nameof(peImage));
+		public static IDictionary<IFixer, FixerMessage> Check(FixerContext context) {
+			if (context is null)
+				throw new ArgumentNullException(nameof(context));
 
 			Dictionary<IFixer, FixerMessage> messages;
 
@@ -40,7 +39,7 @@ namespace UniversalDotNetTools {
 			foreach (IFixer fixer in Fixers) {
 				FixerMessage message;
 
-				if (fixer.Check(peImage, out message))
+				if (fixer.Check(context, out message))
 					messages.Add(fixer, message);
 			}
 			return messages;
@@ -49,11 +48,11 @@ namespace UniversalDotNetTools {
 		/// <summary>
 		/// Fix errors
 		/// </summary>
-		/// <param name="peImage"></param>
+		/// <param name="context"></param>
 		/// <returns></returns>
-		public static IDictionary<IFixer, FixerMessage> Fix(IPEImage peImage) {
-			if (peImage is null)
-				throw new ArgumentNullException(nameof(peImage));
+		public static IDictionary<IFixer, FixerMessage> Fix(FixerContext context) {
+			if (context is null)
+				throw new ArgumentNullException(nameof(context));
 
 			Dictionary<IFixer, FixerMessage> messages;
 
@@ -61,7 +60,7 @@ namespace UniversalDotNetTools {
 			foreach (IFixer fixer in Fixers) {
 				FixerMessage message;
 
-				if (fixer.Fix(peImage, out message))
+				if (fixer.Fix(context, out message))
 					messages.Add(fixer, message);
 			}
 			return messages;

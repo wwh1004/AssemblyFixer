@@ -47,7 +47,7 @@ namespace Mdlib.PE {
 		public bool Is64Bit => _optionalHeader.Is64Bit;
 
 		internal NtHeader(IPEImage peImage) {
-			if (peImage == null)
+			if (peImage is null)
 				throw new ArgumentNullException(nameof(peImage));
 
 			_offset = peImage.DosHeader.NtHeaderOffset;

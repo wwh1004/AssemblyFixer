@@ -30,7 +30,7 @@ namespace Mdlib.PE {
 		}
 
 		/// <summary />
-		public ushort SectionsCount {
+		public ushort SectionCount {
 			get => RawValue->NumberOfSections;
 			set => RawValue->NumberOfSections = value;
 		}
@@ -57,7 +57,7 @@ namespace Mdlib.PE {
 		public uint Length => IMAGE_FILE_HEADER.UnmanagedSize;
 
 		internal FileHeader(NtHeader ntHeader) {
-			if (ntHeader == null)
+			if (ntHeader is null)
 				throw new ArgumentNullException(nameof(ntHeader));
 
 			_rawData = (byte*)ntHeader.RawData + 4;
