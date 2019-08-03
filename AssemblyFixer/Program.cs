@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using Mdlib.PE;
@@ -22,7 +24,28 @@ namespace UniversalDotNetTools {
 				return;
 			}
 			using (IPEImage peImage = PEImageFactory.Create(assemblyPath)) {
-				var a = AssemblyFixer.Fixers;
+				IDictionary<IFixer, FixerMessage> messages;
+
+				Console.WriteLine("Checking errors...");
+				messages = AssemblyFixer.Check(peImage);
+				Console.WriteLine("Checked errors:");
+				foreach (KeyValuePair<IFixer, FixerMessage> fixerToMessage in messages)
+					Console.WriteLine($"  -{fixerToMessage.Key.Name}: {fixerToMessage.Value.Text} ({fixerToMessage.Value.Level})");
+				Console.WriteLine();
+				Console.WriteLine("Fixing errors...");
+				messages = AssemblyFixer.Fix(peImage);
+				Console.WriteLine("Fixed errors:");
+				foreach (KeyValuePair<IFixer, FixerMessage> fixerToMessage in messages)
+					Console.WriteLine($"  -{fixerToMessage.Key.Name}: {fixerToMessage.Value.Text} ({fixerToMessage.Value.Level})");
+				Console.WriteLine();
+			}
+			if (IsN00bUser() || Debugger.IsAttached) {
+				Console.WriteLine("Press any key to exit...");
+				try {
+					Console.ReadKey(true);
+				}
+				catch {
+				}
 			}
 		}
 
@@ -45,6 +68,27 @@ namespace UniversalDotNetTools {
 
 		private static T GetAssemblyAttribute<T>() {
 			return (T)Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(T), false)[0];
+		}
+
+		private static bool IsN00bUser() {
+			if (HasEnv("VisualStudioDir"))
+				return false;
+			if (HasEnv("SHELL"))
+				return false;
+			return HasEnv("windir") && !HasEnv("PROMPT");
+		}
+
+		private static bool HasEnv(string name) {
+			foreach (object key in Environment.GetEnvironmentVariables().Keys) {
+				string env;
+
+				env = key as string;
+				if (env == null)
+					continue;
+				if (string.Equals(env, name, StringComparison.OrdinalIgnoreCase))
+					return true;
+			}
+			return false;
 		}
 	}
 }

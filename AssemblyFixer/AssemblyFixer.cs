@@ -31,6 +31,9 @@ namespace UniversalDotNetTools {
 		/// <param name="peImage"></param>
 		/// <returns></returns>
 		public static IDictionary<IFixer, FixerMessage> Check(IPEImage peImage) {
+			if (peImage is null)
+				throw new ArgumentNullException(nameof(peImage));
+
 			Dictionary<IFixer, FixerMessage> messages;
 
 			messages = new Dictionary<IFixer, FixerMessage>();
@@ -49,6 +52,9 @@ namespace UniversalDotNetTools {
 		/// <param name="peImage"></param>
 		/// <returns></returns>
 		public static IDictionary<IFixer, FixerMessage> Fix(IPEImage peImage) {
+			if (peImage is null)
+				throw new ArgumentNullException(nameof(peImage));
+
 			Dictionary<IFixer, FixerMessage> messages;
 
 			messages = new Dictionary<IFixer, FixerMessage>();
