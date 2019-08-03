@@ -46,18 +46,18 @@ namespace UniversalDotNetTools {
 						Console.WriteLine("Invalid input");
 				} while (true);
 				Console.WriteLine();
-				Console.WriteLine("Checking...");
-				messages = AssemblyFixer.Check(context);
-				Console.WriteLine("Checked errors:");
-				Console.WriteLine();
-				foreach (KeyValuePair<IFixer, FixerMessage> fixerToMessage in messages) {
-					Console.WriteLine(fixerToMessage.Key.Name + ":");
-					Console.WriteLine($"Level: {fixerToMessage.Value.Level}");
-					Console.WriteLine("Message:");
-					Console.WriteLine(fixerToMessage.Value.Text);
-					Console.WriteLine();
-				}
-				Console.WriteLine();
+				//Console.WriteLine("Checking...");
+				//messages = AssemblyFixer.Check(context);
+				//Console.WriteLine("Checked errors:");
+				//Console.WriteLine();
+				//foreach (KeyValuePair<IFixer, FixerMessage> fixerToMessage in messages) {
+				//	Console.WriteLine(fixerToMessage.Key.Name + ":");
+				//	Console.WriteLine($"Level: {fixerToMessage.Value.Level}");
+				//	Console.WriteLine("Message:");
+				//	Console.WriteLine(fixerToMessage.Value.Text);
+				//	Console.WriteLine();
+				//}
+				//Console.WriteLine();
 				Console.WriteLine("Fixing...");
 				messages = AssemblyFixer.Fix(context);
 				Console.WriteLine("Fixed errors:");

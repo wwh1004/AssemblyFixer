@@ -38,10 +38,12 @@
   <ItemGroup>
     <Compile Include="AssemblyFixer.cs" />
     <Compile Include="FixerContext.cs" />
+    <Compile Include="Fixers\Cor20HeaderFixer.cs" />
     <Compile Include="Fixers\DosHeaderFixer.cs" />
     <Compile Include="Fixers\FileHeaderFixer.cs" />
     <Compile Include="Fixers\NtHeaderFixer.cs" />
     <Compile Include="Fixers\OptionalHeaderFixer.cs" />
+    <Compile Include="Fixers\SectionHeaderFixer.cs" />
     <Compile Include="Fixers\Utils.cs" />
     <Compile Include="IFixer.cs" />
     <Compile Include="Mdlib\DotNet\Metadata\ComImageFlags.cs" />
