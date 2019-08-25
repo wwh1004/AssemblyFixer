@@ -27,7 +27,7 @@ namespace UniversalDotNetTools.Fixers {
 
 			level = FixerLevel.None;
 			texts = new List<string>();
-			p = context.PEImage.NtHeader.RawValue32;
+			p = (IMAGE_NT_HEADERS32*)context.PEImage.NtHeader.RawData;
 			Utils.FixErrorInternal("IMAGE_NT_HEADERS.Signature", &p->Signature, 0x4550, fix, ref level, texts);
 			if (level == FixerLevel.None) {
 				message = FixerMessage.None;
