@@ -50,7 +50,7 @@ namespace Mdlib.DotNet.Metadata {
 		public DataDirectory* MetadataDirectory => (DataDirectory*)&RawValue->MetaData;
 
 		/// <summary />
-		public ComImageFlags CorFlags {
+		public ComImageFlags Flags {
 			get => (ComImageFlags)RawValue->Flags;
 			set => RawValue->Flags = (uint)value;
 		}
@@ -60,7 +60,7 @@ namespace Mdlib.DotNet.Metadata {
 		/// </summary>
 		public MetadataToken? EntryPointToken {
 			get {
-				if ((CorFlags & ComImageFlags.NativeEntryPoint) != 0)
+				if ((Flags & ComImageFlags.NativeEntryPoint) != 0)
 					return null;
 
 				return (MetadataToken)RawValue->EntryPointTokenOrRVA;
@@ -69,7 +69,7 @@ namespace Mdlib.DotNet.Metadata {
 				if (value is null)
 					throw new ArgumentNullException(nameof(value));
 
-				CorFlags &= ~ComImageFlags.NativeEntryPoint;
+				Flags &= ~ComImageFlags.NativeEntryPoint;
 				RawValue->EntryPointTokenOrRVA = (uint)value.Value;
 			}
 		}
@@ -79,7 +79,7 @@ namespace Mdlib.DotNet.Metadata {
 		/// </summary>
 		public RVA? EntryPointRVA {
 			get {
-				if ((CorFlags & ComImageFlags.NativeEntryPoint) == 0)
+				if ((Flags & ComImageFlags.NativeEntryPoint) == 0)
 					return null;
 
 				return (RVA)RawValue->EntryPointTokenOrRVA;
@@ -88,7 +88,7 @@ namespace Mdlib.DotNet.Metadata {
 				if (value is null)
 					throw new ArgumentNullException(nameof(value));
 
-				CorFlags |= ComImageFlags.NativeEntryPoint;
+				Flags |= ComImageFlags.NativeEntryPoint;
 				RawValue->EntryPointTokenOrRVA = (uint)value.Value;
 			}
 		}

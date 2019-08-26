@@ -31,7 +31,7 @@ namespace UniversalDotNetTools.Fixers {
 			level = FixerLevel.None;
 			texts = new List<string>();
 			p = context.PEImage.FileHeader.RawValue;
-			machine = (ushort)(context.PEImage.Is64Bit ? MachineType.AMD64 : MachineType.I386);
+			machine = (ushort)(context.PEImage.Is64Bit ? Machine.AMD64 : Machine.I386);
 			Utils.FixErrorInternal("IMAGE_FILE_HEADER.Machine", &p->Machine, machine, fix, ref level, texts);
 			Utils.FixErrorInternal("IMAGE_FILE_HEADER.PointerToSymbolTable", &p->PointerToSymbolTable, 0, fix, ref level, texts);
 			Utils.FixErrorInternal("IMAGE_FILE_HEADER.NumberOfSymbols", &p->NumberOfSymbols, 0, fix, ref level, texts);

@@ -89,7 +89,7 @@ namespace UniversalDotNetTools.Fixers {
 			Utils.FixWarningInternal("IMAGE_OPTIONAL_HEADER.DataDirectory[IMAGE_DIRECTORY_ENTRY_TLS]", (ulong*)(pDataDirectories + 9), 0, fix, ref level, texts);
 			Utils.FixWarningInternal("IMAGE_OPTIONAL_HEADER.DataDirectory[IMAGE_DIRECTORY_ENTRY_LOAD_CONFIG]", (ulong*)(pDataDirectories + 10), 0, fix, ref level, texts);
 			Utils.FixWarningInternal("IMAGE_OPTIONAL_HEADER.DataDirectory[IMAGE_DIRECTORY_ENTRY_BOUND_IMPORT]", (ulong*)(pDataDirectories + 11), 0, fix, ref level, texts);
-			Utils.FixWarningInternal("(TODO!!!)IMAGE_OPTIONAL_HEADER.DataDirectory[IMAGE_DIRECTORY_ENTRY_IAT]", (ulong*)(pDataDirectories + 12), 0, fix, ref level, texts);
+			Utils.FixWarningInternal("IMAGE_OPTIONAL_HEADER.DataDirectory[IMAGE_DIRECTORY_ENTRY_IAT]", (ulong*)(pDataDirectories + 12), 0, fix, ref level, texts);
 			Utils.FixWarningInternal("IMAGE_OPTIONAL_HEADER.DataDirectory[IMAGE_DIRECTORY_ENTRY_DELAY_IMPORT]", (ulong*)(pDataDirectories + 13), 0, fix, ref level, texts);
 			if (level == FixerLevel.None) {
 				message = FixerMessage.None;

@@ -40,7 +40,7 @@ namespace Mdlib.PE {
 		}
 
 		/// <summary />
-		public RVA EntryPointAddress {
+		public RVA EntryPointRVA {
 			get {
 				if (_is64Bit)
 					return (RVA)RawValue64->AddressOfEntryPoint;
@@ -136,12 +136,12 @@ namespace Mdlib.PE {
 		}
 
 		/// <summary />
-		public SubsystemType SubsystemType {
+		public Subsystem Subsystem {
 			get {
 				if (_is64Bit)
-					return (SubsystemType)RawValue64->Subsystem;
+					return (Subsystem)RawValue64->Subsystem;
 				else
-					return (SubsystemType)RawValue32->Subsystem;
+					return (Subsystem)RawValue32->Subsystem;
 			}
 			set {
 				if (_is64Bit)
@@ -152,7 +152,7 @@ namespace Mdlib.PE {
 		}
 
 		/// <summary />
-		public ushort DllCharacteristicFlags {
+		public ushort DllCharacteristics {
 			get {
 				if (_is64Bit)
 					return RawValue64->DllCharacteristics;

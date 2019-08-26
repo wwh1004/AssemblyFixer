@@ -4,7 +4,7 @@ namespace Mdlib.PE {
 	/// <summary>
 	/// IMAGE_OPTIONAL_HEADER.Subsystem
 	/// </summary>
-	public enum SubsystemType : ushort {
+	public enum Subsystem : ushort {
 		/// <summary>
 		/// Unknown subsystem.
 		/// </summary>

@@ -24,8 +24,8 @@ namespace Mdlib.PE {
 		public FOA FOA => (FOA)_offset;
 
 		/// <summary />
-		public MachineType MachineType {
-			get => (MachineType)RawValue->Machine;
+		public Machine Machine {
+			get => (Machine)RawValue->Machine;
 			set => RawValue->Machine = (ushort)value;
 		}
 
@@ -48,7 +48,7 @@ namespace Mdlib.PE {
 		}
 
 		/// <summary />
-		public ushort CharacteristicFlags {
+		public ushort Characteristics {
 			get => RawValue->Characteristics;
 			set => RawValue->Characteristics = value;
 		}

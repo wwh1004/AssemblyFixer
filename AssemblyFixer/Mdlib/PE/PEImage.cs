@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
@@ -113,8 +114,75 @@ namespace Mdlib.PE {
 		/// </summary>
 		/// <param name="peImage">PE映像数据</param>
 		/// <returns></returns>
+		public static IPEImage Create(Stream peImage) {
+			return Create(ReadStreamAllBytes(peImage));
+		}
+
+		/// <summary>
+		/// 创建 <see cref="IPEImage"/> 实例，使用文件布局
+		/// </summary>
+		/// <param name="peImage">PE映像数据</param>
+		/// <returns></returns>
 		public static IPEImage Create(byte[] peImage) {
 			return new FilePEImage(peImage);
+		}
+
+		/// <summary>
+		/// 创建 <see cref="IPEImage"/> 实例，使用内存布局
+		/// </summary>
+		/// <param name="pPEImage">PE映像地址</param>
+		/// <returns></returns>
+		public static IPEImage Create(IntPtr pPEImage) {
+			return Create((void*)pPEImage);
+		}
+
+		/// <summary>
+		/// 创建 <see cref="IPEImage"/> 实例，使用内存布局
+		/// </summary>
+		/// <param name="pPEImage">PE映像地址</param>
+		/// <returns></returns>
+		public static IPEImage Create(void* pPEImage) {
+			return new MemoryPEImage(pPEImage);
+		}
+
+		private static byte[] ReadStreamAllBytes(Stream stream) {
+			if (stream is null)
+				throw new ArgumentNullException(nameof(stream));
+
+			int length;
+
+			try {
+				length = (int)stream.Length;
+			}
+			catch {
+				length = -1;
+			}
+			if (length == -1) {
+				byte[] buffer;
+				List<byte> byteList;
+				int count;
+
+				buffer = new byte[0x1000];
+				byteList = new List<byte>();
+				for (int i = 0; i < int.MaxValue; i++) {
+					count = stream.Read(buffer, 0, buffer.Length);
+					if (count == 0x1000)
+						byteList.AddRange(buffer);
+					else if (count == 0)
+						return byteList.ToArray();
+					else
+						for (int j = 0; j < count; j++)
+							byteList.Add(buffer[j]);
+				}
+				return byteList.ToArray();
+			}
+			else {
+				byte[] buffer;
+
+				buffer = new byte[length];
+				stream.Read(buffer, 0, length);
+				return buffer;
+			}
 		}
 	}
 
@@ -202,6 +270,70 @@ namespace Mdlib.PE {
 
 			Marshal.FreeHGlobal((IntPtr)_rawData);
 			_isDisposed = true;
+		}
+	}
+
+	[DebuggerDisplay("MemoryPEImage:[P:{Utils.PointerToString(RawData)} L:{Length}]")]
+	internal sealed unsafe class MemoryPEImage : IPEImage {
+		private readonly void* _rawData;
+		private readonly uint _length;
+		private readonly bool _isDotNetImage;
+		private readonly DosHeader _dosHeader;
+		private readonly NtHeader _ntHeader;
+		private readonly SectionHeader[] _sectionHeaders;
+		private IMetadata _metadata;
+
+		public IntPtr RawData => (IntPtr)_rawData;
+
+		public uint Length => _length;
+
+		public bool Is64Bit => _ntHeader.Is64Bit;
+
+		public bool IsDotNetImage => _isDotNetImage;
+
+		public PEImageLayout Layout => PEImageLayout.Memory;
+
+		public DosHeader DosHeader => _dosHeader;
+
+		public NtHeader NtHeader => _ntHeader;
+
+		public FileHeader FileHeader => _ntHeader.FileHeader;
+
+		public OptionalHeader OptionalHeader => _ntHeader.OptionalHeader;
+
+		public SectionHeader[] SectionHeaders => _sectionHeaders;
+
+		public IMetadata Metadata {
+			get {
+				if (!_isDotNetImage)
+					throw new InvalidOperationException();
+
+				if (_metadata is null)
+					_metadata = new Metadata(this);
+				return _metadata;
+			}
+		}
+
+		internal MemoryPEImage(void* rawData) {
+			_rawData = null;
+			_length = 0;
+			_isDotNetImage = false;
+			_dosHeader = null;
+			_ntHeader = null;
+			_sectionHeaders = null;
+			throw new NotImplementedException();
+		}
+
+		public RVA ToRVA(FOA foa) {
+			return (RVA)foa;
+		}
+
+		public FOA ToFOA(RVA rva) {
+			return (FOA)rva;
+		}
+
+		public void Dispose() {
+			throw new NotImplementedException();
 		}
 	}
 }
