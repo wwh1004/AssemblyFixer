@@ -50,6 +50,7 @@ namespace UniversalDotNetTools.Fixers {
 				Utils.FixWarningInternal("IMAGE_OPTIONAL_HEADER.SizeOfStackCommit", &p->SizeOfStackCommit, 0x00001000, fix, ref level, texts);
 				Utils.FixWarningInternal("IMAGE_OPTIONAL_HEADER.SizeOfHeapReserve", &p->SizeOfHeapReserve, 0x00100000, fix, ref level, texts);
 				Utils.FixWarningInternal("IMAGE_OPTIONAL_HEADER.SizeOfHeapCommit", &p->SizeOfHeapCommit, 0x00001000, fix, ref level, texts);
+				Utils.FixWarningInternal("IMAGE_OPTIONAL_HEADER.LoaderFlags", &p->LoaderFlags, 0, fix, ref level, texts);
 				Utils.FixWarningInternal("IMAGE_OPTIONAL_HEADER.NumberOfRvaAndSizes", &p->NumberOfRvaAndSizes, 0x10, fix, ref level, texts);
 				pDataDirectories = (DataDirectory*)p->DataDirectory;
 			}
@@ -74,6 +75,7 @@ namespace UniversalDotNetTools.Fixers {
 				Utils.FixWarningInternal("IMAGE_OPTIONAL_HEADER.SizeOfStackCommit", &p->SizeOfStackCommit, 0x0000000000004000, fix, ref level, texts);
 				Utils.FixWarningInternal("IMAGE_OPTIONAL_HEADER.SizeOfHeapReserve", &p->SizeOfHeapReserve, 0x0000000000100000, fix, ref level, texts);
 				Utils.FixWarningInternal("IMAGE_OPTIONAL_HEADER.SizeOfHeapCommit", &p->SizeOfHeapCommit, 0x0000000000002000, fix, ref level, texts);
+				Utils.FixWarningInternal("IMAGE_OPTIONAL_HEADER.LoaderFlags", &p->LoaderFlags, 0, fix, ref level, texts);
 				Utils.FixWarningInternal("IMAGE_OPTIONAL_HEADER.NumberOfRvaAndSizes", &p->NumberOfRvaAndSizes, 0x10, fix, ref level, texts);
 				pDataDirectories = (DataDirectory*)p->DataDirectory;
 			}
