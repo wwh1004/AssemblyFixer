@@ -27,22 +27,20 @@ namespace UniversalDotNetTools {
 			using (FixerContext context = new FixerContext(PEImageFactory.Create(assemblyPath))) {
 				IDictionary<IFixer, FixerMessage> messages;
 
-				Console.WriteLine("If it is dll, enter Y, otherwise enter N.");
-				do {
-					string userInput;
-
-					userInput = Console.ReadLine().Trim().ToUpperInvariant();
-					if (userInput == "Y") {
-						context.IsDll = true;
-						break;
-					}
-					else if (userInput == "N") {
-						context.IsDll = false;
-						break;
-					}
-					else
-						Console.WriteLine("Invalid input");
-				} while (true);
+				switch (assemblyPath.Substring(assemblyPath.Length - 4).ToUpperInvariant()) {
+				case ".EXE":
+					Console.WriteLine("exe detected");
+					context.IsDll = false;
+					break;
+				case ".DLL":
+					Console.WriteLine("dll detected");
+					context.IsDll = true;
+					break;
+				default:
+					Console.WriteLine("Unknown file extension!!!");
+					context.IsDll = true;
+					break;
+				}
 				Console.WriteLine();
 				Console.WriteLine("Fixing...");
 				messages = AssemblyFixer.Fix(context);
