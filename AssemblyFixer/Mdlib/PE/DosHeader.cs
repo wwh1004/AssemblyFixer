@@ -7,7 +7,7 @@ namespace Mdlib.PE {
 	/// Dos头
 	/// </summary>
 	[DebuggerDisplay("DosHdr:[P:{Utils.PointerToString(RawData)} NTO:{NtHeaderOffset}]")]
-	public sealed unsafe class DosHeader : IRawData<IMAGE_DOS_HEADER> {
+	internal sealed unsafe class DosHeader : IRawData<IMAGE_DOS_HEADER> {
 		private readonly void* _rawData;
 
 		/// <summary />

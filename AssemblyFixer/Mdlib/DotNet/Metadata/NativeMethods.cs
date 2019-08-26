@@ -3,12 +3,12 @@ using System.Runtime.InteropServices;
 using static Mdlib.NativeMethods;
 
 namespace Mdlib.DotNet.Metadata {
-	public static unsafe class NativeMethods {
+	internal static unsafe class NativeMethods {
 		public const ushort MAXSTREAMNAME = 32;
 		public const byte TBL_COUNT = 45;
 
 		[StructLayout(LayoutKind.Sequential, Pack = 1)]
-		public struct IMAGE_COR20_HEADER {
+		internal struct IMAGE_COR20_HEADER {
 			public static readonly uint UnmanagedSize = (uint)sizeof(IMAGE_COR20_HEADER);
 
 			public uint cb;
@@ -26,7 +26,7 @@ namespace Mdlib.DotNet.Metadata {
 		}
 
 		[StructLayout(LayoutKind.Sequential, Pack = 1)]
-		public struct STORAGESIGNATURE {
+		internal struct STORAGESIGNATURE {
 			/// <summary>
 			/// 大小不包括pVersion的长度
 			/// </summary>
@@ -44,7 +44,7 @@ namespace Mdlib.DotNet.Metadata {
 		}
 
 		[StructLayout(LayoutKind.Sequential, Pack = 1)]
-		public struct STORAGEHEADER {
+		internal struct STORAGEHEADER {
 			public static readonly uint UnmanagedSize = (uint)sizeof(STORAGEHEADER);
 
 			public byte fFlags;
@@ -53,7 +53,7 @@ namespace Mdlib.DotNet.Metadata {
 		}
 
 		[StructLayout(LayoutKind.Sequential, Pack = 1)]
-		public struct STORAGESTREAM {
+		internal struct STORAGESTREAM {
 			/// <summary>
 			/// 大小不包括rcName的长度
 			/// </summary>

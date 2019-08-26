@@ -7,7 +7,7 @@ namespace Mdlib.PE {
 	/// 可选头
 	/// </summary>
 	[DebuggerDisplay("OptHdr:[P:{Utils.PointerToString(RawData)} RVA:{RVA} FOA:{FOA}]")]
-	public sealed unsafe class OptionalHeader : IRawData {
+	internal sealed unsafe class OptionalHeader : IRawData {
 		private readonly void* _rawData;
 		private readonly uint _offset;
 		private readonly bool _is64Bit;

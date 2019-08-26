@@ -6,7 +6,7 @@ namespace Mdlib.DotNet.Metadata {
 	/// 元数据标记
 	/// </summary>
 	[DebuggerDisplay("MDToken:{ToString()} ({Type})")]
-	public struct MetadataToken : IEquatable<MetadataToken> {
+	internal struct MetadataToken : IEquatable<MetadataToken> {
 		private readonly uint _value;
 
 		/// <summary>

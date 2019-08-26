@@ -4,7 +4,7 @@ namespace Mdlib.PE {
 	/// <summary>
 	/// IMAGE_FILE_HEADER.Machine enum
 	/// </summary>
-	public enum Machine : ushort {
+	internal enum Machine : ushort {
 		/// <summary>
 		/// Unknown machine
 		/// </summary>

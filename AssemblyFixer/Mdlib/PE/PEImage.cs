@@ -9,7 +9,7 @@ namespace Mdlib.PE {
 	/// <summary>
 	/// PE映像布局方式
 	/// </summary>
-	public enum PEImageLayout {
+	internal enum PEImageLayout {
 		/// <summary>
 		/// 文件
 		/// </summary>
@@ -24,7 +24,7 @@ namespace Mdlib.PE {
 	/// <summary>
 	/// PE映像接口
 	/// </summary>
-	public interface IPEImage : IDisposable {
+	internal interface IPEImage : IDisposable {
 		/// <summary>
 		/// 当前PE映像的原始数据
 		/// </summary>
@@ -99,7 +99,7 @@ namespace Mdlib.PE {
 	/// <summary>
 	/// PE映像工厂类
 	/// </summary>
-	public static unsafe class PEImageFactory {
+	internal static unsafe class PEImageFactory {
 		/// <summary>
 		/// 创建 <see cref="IPEImage"/> 实例，使用文件布局
 		/// </summary>

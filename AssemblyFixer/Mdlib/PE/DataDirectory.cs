@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 namespace Mdlib.PE {
 	/// <summary />
 	[StructLayout(LayoutKind.Sequential)]
-	public struct DataDirectory {
+	internal struct DataDirectory {
 		private uint _address;
 		private uint _size;
 

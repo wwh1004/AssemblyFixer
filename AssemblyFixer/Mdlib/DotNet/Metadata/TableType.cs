@@ -2,7 +2,7 @@ namespace Mdlib.DotNet.Metadata {
 	/// <summary>
 	/// 元数据表类型
 	/// </summary>
-	public enum TableType : byte {
+	internal enum TableType : byte {
 		/// <summary>
 		/// Module表
 		/// </summary>

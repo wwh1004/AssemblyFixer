@@ -5,7 +5,7 @@ namespace Mdlib.DotNet.Metadata {
 	/// <summary>
 	/// 元数据
 	/// </summary>
-	public interface IMetadata {
+	internal interface IMetadata {
 		/// <summary>
 		/// 当前元数据所属的PE映像
 		/// </summary>

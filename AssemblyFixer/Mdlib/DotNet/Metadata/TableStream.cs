@@ -5,7 +5,7 @@ namespace Mdlib.DotNet.Metadata {
 	/// <summary>
 	/// 元数据表流
 	/// </summary>
-	public sealed unsafe class TableStream : MetadataStream {
+	internal sealed unsafe class TableStream : MetadataStream {
 		private readonly bool _isCompressed;
 		private readonly bool _isBigString;
 		private readonly bool _isBigGuid;

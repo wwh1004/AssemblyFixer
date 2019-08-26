@@ -8,7 +8,7 @@ namespace Mdlib.DotNet.Metadata {
 	/// 存储头
 	/// </summary>
 	[DebuggerDisplay("StgHdr:[P:{Utils.PointerToString(RawData)} RVA:{RVA} FOA:{FOA} SC:{StreamsCount}]")]
-	public sealed unsafe class StorageHeader : IRawData<STORAGEHEADER> {
+	internal sealed unsafe class StorageHeader : IRawData<STORAGEHEADER> {
 		private readonly IPEImage _peImage;
 		private readonly void* _rawData;
 		private readonly uint _offset;

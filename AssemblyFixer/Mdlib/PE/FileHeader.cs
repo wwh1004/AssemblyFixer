@@ -7,7 +7,7 @@ namespace Mdlib.PE {
 	/// 文件头
 	/// </summary>
 	[DebuggerDisplay("FileHdr:[P:{Utils.PointerToString(RawData)} RVA:{RVA} FOA:{FOA} MT:{MachineType}]")]
-	public sealed unsafe class FileHeader : IRawData<IMAGE_FILE_HEADER> {
+	internal sealed unsafe class FileHeader : IRawData<IMAGE_FILE_HEADER> {
 		private readonly void* _rawData;
 		private readonly uint _offset;
 

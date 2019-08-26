@@ -7,7 +7,7 @@ namespace Mdlib.DotNet.Metadata {
 	/// 堆二进制标志
 	/// </summary>
 	[Flags]
-	public enum HeapFlags : byte {
+	internal enum HeapFlags : byte {
 		/// <summary>
 		/// #Strings stream is big and requires 4 byte offsets
 		/// </summary>

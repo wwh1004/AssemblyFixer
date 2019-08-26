@@ -8,7 +8,7 @@ namespace Mdlib.DotNet.Metadata {
 	/// Cor20头
 	/// </summary>
 	[DebuggerDisplay("CorHdr:[P:{Utils.PointerToString(RawData)} RVA:{RVA} FOA:{FOA}]")]
-	public unsafe sealed class Cor20Header : IRawData<IMAGE_COR20_HEADER> {
+	internal sealed unsafe class Cor20Header : IRawData<IMAGE_COR20_HEADER> {
 		private readonly IPEImage _peImage;
 		private readonly void* _rawData;
 		private readonly uint _offset;

@@ -9,7 +9,7 @@ namespace Mdlib.DotNet.Metadata {
 	/// 存储签名
 	/// </summary>
 	[DebuggerDisplay("StgSig:[P:{Utils.PointerToString(RawData)} RVA:{RVA} FOA:{FOA} V:{DisplayVersionString}]")]
-	public sealed unsafe class StorageSignature : IRawData<STORAGESIGNATURE> {
+	internal sealed unsafe class StorageSignature : IRawData<STORAGESIGNATURE> {
 		private readonly IPEImage _peImage;
 		private readonly void* _rawData;
 		private readonly uint _offset;

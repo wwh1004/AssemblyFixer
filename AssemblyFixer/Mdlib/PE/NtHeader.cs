@@ -7,7 +7,7 @@ namespace Mdlib.PE {
 	/// Nt头
 	/// </summary>
 	[DebuggerDisplay("NtHdr:[P:{Utils.PointerToString(RawData)} RVA:{RVA} FOA:{FOA}]")]
-	public sealed unsafe class NtHeader : IRawData {
+	internal sealed unsafe class NtHeader : IRawData {
 		private readonly void* _rawData;
 		private readonly uint _offset;
 		private readonly FileHeader _fileHeader;

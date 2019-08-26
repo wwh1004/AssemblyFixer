@@ -8,7 +8,7 @@ namespace Mdlib.PE {
 	/// 节头
 	/// </summary>
 	[DebuggerDisplay("SectHdr:[P:{Utils.PointerToString(RawData)} RVA:{RVA} FOA:{FOA} N:{DisplayName}]")]
-	public sealed unsafe class SectionHeader : IRawData<IMAGE_SECTION_HEADER> {
+	internal sealed unsafe class SectionHeader : IRawData<IMAGE_SECTION_HEADER> {
 		private readonly void* _rawData;
 		private readonly uint _offset;
 		private string _displayName;

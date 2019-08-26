@@ -24,11 +24,9 @@ namespace UniversalDotNetTools {
 				Console.WriteLine("File doesn't exist.");
 				return;
 			}
-			using (IPEImage peImage = PEImageFactory.Create(assemblyPath)) {
-				FixerContext context;
+			using (FixerContext context = new FixerContext(PEImageFactory.Create(assemblyPath))) {
 				IDictionary<IFixer, FixerMessage> messages;
 
-				context = new FixerContext(peImage);
 				Console.WriteLine("If it is dll, enter Y, otherwise enter N.");
 				do {
 					string userInput;
@@ -46,18 +44,6 @@ namespace UniversalDotNetTools {
 						Console.WriteLine("Invalid input");
 				} while (true);
 				Console.WriteLine();
-				//Console.WriteLine("Checking...");
-				//messages = AssemblyFixer.Check(context);
-				//Console.WriteLine("Checked errors:");
-				//Console.WriteLine();
-				//foreach (KeyValuePair<IFixer, FixerMessage> fixerToMessage in messages) {
-				//	Console.WriteLine(fixerToMessage.Key.Name + ":");
-				//	Console.WriteLine($"Level: {fixerToMessage.Value.Level}");
-				//	Console.WriteLine("Message:");
-				//	Console.WriteLine(fixerToMessage.Value.Text);
-				//	Console.WriteLine();
-				//}
-				//Console.WriteLine();
 				Console.WriteLine("Fixing...");
 				messages = AssemblyFixer.Fix(context);
 				Console.WriteLine("Fixed errors:");
@@ -76,8 +62,8 @@ namespace UniversalDotNetTools {
 					byte[] peImageData;
 					string newAssemblyPath;
 
-					peImageData = new byte[peImage.Length];
-					Marshal.Copy(peImage.RawData, peImageData, 0, peImageData.Length);
+					peImageData = new byte[context.Length];
+					Marshal.Copy(context.RawData, peImageData, 0, peImageData.Length);
 					newAssemblyPath = PathInsertPostfix(assemblyPath, ".fix");
 					Console.WriteLine("Saving: " + newAssemblyPath);
 					File.WriteAllBytes(newAssemblyPath, peImageData);

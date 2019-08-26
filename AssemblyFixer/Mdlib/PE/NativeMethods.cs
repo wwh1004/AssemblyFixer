@@ -2,12 +2,12 @@
 using System.Runtime.InteropServices;
 
 namespace Mdlib {
-	public static unsafe class NativeMethods {
+	internal static unsafe class NativeMethods {
 		public const ushort IMAGE_NUMBEROF_DIRECTORY_ENTRIES = 16;
 		public const ushort IMAGE_SIZEOF_SHORT_NAME = 8;
 
 		[StructLayout(LayoutKind.Sequential, Pack = 1)]
-		public struct IMAGE_DOS_HEADER {
+		internal struct IMAGE_DOS_HEADER {
 			public static readonly uint UnmanagedSize = (uint)sizeof(IMAGE_DOS_HEADER);
 
 			public ushort e_magic;
@@ -32,7 +32,7 @@ namespace Mdlib {
 		}
 
 		[StructLayout(LayoutKind.Sequential, Pack = 1)]
-		public struct IMAGE_NT_HEADERS32 {
+		internal struct IMAGE_NT_HEADERS32 {
 			public static readonly uint UnmanagedSize = (uint)sizeof(IMAGE_NT_HEADERS32);
 
 			public uint Signature;
@@ -41,7 +41,7 @@ namespace Mdlib {
 		}
 
 		[StructLayout(LayoutKind.Sequential, Pack = 1)]
-		public struct IMAGE_NT_HEADERS64 {
+		internal struct IMAGE_NT_HEADERS64 {
 			public static readonly uint UnmanagedSize = (uint)sizeof(IMAGE_NT_HEADERS64);
 
 			public uint Signature;
@@ -50,7 +50,7 @@ namespace Mdlib {
 		}
 
 		[StructLayout(LayoutKind.Sequential, Pack = 1)]
-		public struct IMAGE_FILE_HEADER {
+		internal struct IMAGE_FILE_HEADER {
 			public static readonly uint UnmanagedSize = (uint)sizeof(IMAGE_FILE_HEADER);
 
 			public ushort Machine;
@@ -63,7 +63,7 @@ namespace Mdlib {
 		}
 
 		[StructLayout(LayoutKind.Sequential, Pack = 1)]
-		public struct IMAGE_OPTIONAL_HEADER32 {
+		internal struct IMAGE_OPTIONAL_HEADER32 {
 			public static readonly uint UnmanagedSize = (uint)sizeof(IMAGE_OPTIONAL_HEADER32);
 
 			public ushort Magic;
@@ -100,7 +100,7 @@ namespace Mdlib {
 		}
 
 		[StructLayout(LayoutKind.Sequential, Pack = 1)]
-		public struct IMAGE_OPTIONAL_HEADER64 {
+		internal struct IMAGE_OPTIONAL_HEADER64 {
 			public static readonly uint UnmanagedSize = (uint)sizeof(IMAGE_OPTIONAL_HEADER64);
 
 			public ushort Magic;
@@ -136,7 +136,7 @@ namespace Mdlib {
 		}
 
 		[StructLayout(LayoutKind.Sequential, Pack = 1)]
-		public struct IMAGE_DATA_DIRECTORY {
+		internal struct IMAGE_DATA_DIRECTORY {
 			public static readonly uint UnmanagedSize = (uint)sizeof(IMAGE_DATA_DIRECTORY);
 
 			public uint VirtualAddress;
@@ -144,7 +144,7 @@ namespace Mdlib {
 		}
 
 		[StructLayout(LayoutKind.Sequential, Pack = 1)]
-		public struct IMAGE_SECTION_HEADER {
+		internal struct IMAGE_SECTION_HEADER {
 			public static readonly uint UnmanagedSize = (uint)sizeof(IMAGE_SECTION_HEADER);
 
 			public fixed byte Name[IMAGE_SIZEOF_SHORT_NAME];

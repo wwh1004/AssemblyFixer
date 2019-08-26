@@ -2,7 +2,7 @@ namespace Mdlib.PE {
 	/// <summary>
 	/// IMAGE_OPTIONAL_HEADER.Magic
 	/// </summary>
-	public enum OptionalHeaderType : ushort {
+	internal enum OptionalHeaderType : ushort {
 		/// <summary>
 		/// ROM
 		/// </summary>

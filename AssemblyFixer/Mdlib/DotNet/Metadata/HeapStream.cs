@@ -2,7 +2,7 @@ namespace Mdlib.DotNet.Metadata {
 	/// <summary>
 	/// #Strings堆
 	/// </summary>
-	public sealed class StringHeap : MetadataStream {
+	internal sealed class StringHeap : MetadataStream {
 		internal StringHeap(IMetadata metadata, int index) : base(metadata, index) {
 		}
 	}
@@ -10,7 +10,7 @@ namespace Mdlib.DotNet.Metadata {
 	/// <summary>
 	/// #US堆
 	/// </summary>
-	public sealed class UserStringHeap : MetadataStream {
+	internal sealed class UserStringHeap : MetadataStream {
 		internal UserStringHeap(IMetadata metadata, int index) : base(metadata, index) {
 		}
 	}
@@ -18,7 +18,7 @@ namespace Mdlib.DotNet.Metadata {
 	/// <summary>
 	/// #GUID堆
 	/// </summary>
-	public sealed class GuidHeap : MetadataStream {
+	internal sealed class GuidHeap : MetadataStream {
 		internal GuidHeap(IMetadata metadata, int index) : base(metadata, index) {
 		}
 	}
@@ -26,7 +26,7 @@ namespace Mdlib.DotNet.Metadata {
 	/// <summary>
 	/// #Blob堆
 	/// </summary>
-	public sealed class BlobHeap : MetadataStream {
+	internal sealed class BlobHeap : MetadataStream {
 		internal BlobHeap(IMetadata metadata, int index) : base(metadata, index) {
 		}
 	}
@@ -34,7 +34,7 @@ namespace Mdlib.DotNet.Metadata {
 	/// <summary>
 	/// 未知元数据堆
 	/// </summary>
-	public sealed class UnknownHeap : MetadataStream {
+	internal sealed class UnknownHeap : MetadataStream {
 		/// <summary>
 		/// 构造器
 		/// </summary>
